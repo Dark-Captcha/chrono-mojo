@@ -1,0 +1,13 @@
+[workspace]
+authors = ["GnU-Chan <gnusocute@gmail.com>"]
+channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
+name = "chrono-mojo"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+test = "mojo run -I . tests/run_tests.mojo"
+
+[dependencies]
+mojo-compiler = "==1.0.0b3.dev2026061606"
+mblack = "==26.5.0.dev2026061606"

@@ -1,0 +1,81 @@
+# America/Santo_Domingo — generated from IANA tzdata (2026b)
+# 17 historical transitions, 6 distinct offset types. Comptime-baked: zero
+# runtime I/O, zero parse cost. Edit by hand if a name/comment needs refinement;
+# transition data should be regenerated when tzdata updates.
+
+from chrono.timezone import Timezone
+from chrono.continent import Continent
+
+
+comptime SANTO_DOMINGO = Timezone[17, 6](
+    name="America/Santo_Domingo",
+    area="America",
+    location="Santo_Domingo",
+    continent=Continent.AMERICAS,
+    transitions=[
+        -2524504824,
+        -1159773600,
+        -100119600,
+        -89668800,
+        -5770800,
+        4422600,
+        25678800,
+        33193800,
+        57733200,
+        64816200,
+        89182800,
+        96438600,
+        120632400,
+        127974600,
+        152082000,
+        972799200,
+        975823200,
+    ],
+    type_indices=[
+        1,
+        3,
+        2,
+        3,
+        4,
+        3,
+        4,
+        3,
+        4,
+        3,
+        4,
+        3,
+        4,
+        3,
+        5,
+        3,
+        5,
+    ],
+    offsets=[
+        -16776,
+        -16800,
+        -14400,
+        -18000,
+        -16200,
+        -14400,
+    ],
+    is_dst=[
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+    ],
+    posix_has_rule=True,
+    posix_has_dst=False,
+    posix_std_offset=-14400,
+    posix_dst_offset=-14400,
+    posix_start_month=0,
+    posix_start_week=0,
+    posix_start_day=0,
+    posix_start_time=0,
+    posix_end_month=0,
+    posix_end_week=0,
+    posix_end_day=0,
+    posix_end_time=0,
+)

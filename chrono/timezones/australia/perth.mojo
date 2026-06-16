@@ -1,0 +1,81 @@
+# Australia/Perth — generated from IANA tzdata (2026b)
+# 19 historical transitions, 4 distinct offset types. Comptime-baked: zero
+# runtime I/O, zero parse cost. Edit by hand if a name/comment needs refinement;
+# transition data should be regenerated when tzdata updates.
+
+from chrono.timezone import Timezone
+from chrono.continent import Continent
+
+
+comptime PERTH = Timezone[19, 4](
+    name="Australia/Perth",
+    area="Australia",
+    location="Perth",
+    continent=Continent.OCEANIA,
+    transitions=[
+        -2337925404,
+        -1672552800,
+        -1665381600,
+        -883634400,
+        -876117600,
+        -860392800,
+        -844668000,
+        152042400,
+        162928800,
+        436298400,
+        447184800,
+        690314400,
+        699386400,
+        1165082400,
+        1174759200,
+        1193508000,
+        1206813600,
+        1224957600,
+        1238263200,
+    ],
+    type_indices=[
+        3,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+    ],
+    offsets=[
+        27804,
+        32400,
+        28800,
+        28800,
+    ],
+    is_dst=[
+        0,
+        1,
+        0,
+        0,
+    ],
+    posix_has_rule=True,
+    posix_has_dst=False,
+    posix_std_offset=28800,
+    posix_dst_offset=28800,
+    posix_start_month=0,
+    posix_start_week=0,
+    posix_start_day=0,
+    posix_start_time=0,
+    posix_end_month=0,
+    posix_end_week=0,
+    posix_end_day=0,
+    posix_end_time=0,
+)

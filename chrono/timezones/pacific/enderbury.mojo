@@ -1,0 +1,49 @@
+# Pacific/Enderbury — generated from IANA tzdata (2026b)
+# 3 historical transitions, 4 distinct offset types. Comptime-baked: zero
+# runtime I/O, zero parse cost. Edit by hand if a name/comment needs refinement;
+# transition data should be regenerated when tzdata updates.
+
+from chrono.timezone import Timezone
+from chrono.continent import Continent
+
+
+comptime ENDERBURY = Timezone[3, 4](
+    name="Pacific/Enderbury",
+    area="Pacific",
+    location="Enderbury",
+    continent=Continent.OCEANIA,
+    transitions=[
+        -1020470400,
+        307627200,
+        788871600,
+    ],
+    type_indices=[
+        1,
+        2,
+        3,
+    ],
+    offsets=[
+        0,
+        -43200,
+        -39600,
+        46800,
+    ],
+    is_dst=[
+        0,
+        0,
+        0,
+        0,
+    ],
+    posix_has_rule=True,
+    posix_has_dst=False,
+    posix_std_offset=46800,
+    posix_dst_offset=46800,
+    posix_start_month=0,
+    posix_start_week=0,
+    posix_start_day=0,
+    posix_start_time=0,
+    posix_end_month=0,
+    posix_end_week=0,
+    posix_end_day=0,
+    posix_end_time=0,
+)

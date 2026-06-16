@@ -1,0 +1,83 @@
+# Asia/Brunei — generated from IANA tzdata (2026b)
+# 18 historical transitions, 6 distinct offset types. Comptime-baked: zero
+# runtime I/O, zero parse cost. Edit by hand if a name/comment needs refinement;
+# transition data should be regenerated when tzdata updates.
+
+from chrono.timezone import Timezone
+from chrono.continent import Continent
+
+
+comptime BRUNEI = Timezone[18, 6](
+    name="Asia/Brunei",
+    area="Asia",
+    location="Brunei",
+    continent=Continent.ASIA,
+    transitions=[
+        -1383463280,
+        -1167636600,
+        -1082448000,
+        -1074586800,
+        -1050825600,
+        -1042964400,
+        -1019289600,
+        -1011428400,
+        -987753600,
+        -979892400,
+        -956217600,
+        -948356400,
+        -924595200,
+        -916734000,
+        -893059200,
+        -885198000,
+        -879667200,
+        -767005200,
+    ],
+    type_indices=[
+        1,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        2,
+        3,
+        4,
+        3,
+    ],
+    offsets=[
+        26480,
+        27000,
+        30000,
+        28800,
+        32400,
+        28800,
+    ],
+    is_dst=[
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+    ],
+    posix_has_rule=True,
+    posix_has_dst=False,
+    posix_std_offset=28800,
+    posix_dst_offset=28800,
+    posix_start_month=0,
+    posix_start_week=0,
+    posix_start_day=0,
+    posix_start_time=0,
+    posix_end_month=0,
+    posix_end_week=0,
+    posix_end_day=0,
+    posix_end_time=0,
+)

@@ -1,0 +1,81 @@
+# Australia/Eucla — generated from IANA tzdata (2026b)
+# 19 historical transitions, 4 distinct offset types. Comptime-baked: zero
+# runtime I/O, zero parse cost. Edit by hand if a name/comment needs refinement;
+# transition data should be regenerated when tzdata updates.
+
+from chrono.timezone import Timezone
+from chrono.continent import Continent
+
+
+comptime EUCLA = Timezone[19, 4](
+    name="Australia/Eucla",
+    area="Australia",
+    location="Eucla",
+    continent=Continent.OCEANIA,
+    transitions=[
+        -2337928528,
+        -1672555500,
+        -1665384300,
+        -883637100,
+        -876120300,
+        -860395500,
+        -844670700,
+        152039700,
+        162926100,
+        436295700,
+        447182100,
+        690311700,
+        699383700,
+        1165079700,
+        1174756500,
+        1193505300,
+        1206810900,
+        1224954900,
+        1238260500,
+    ],
+    type_indices=[
+        3,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2,
+    ],
+    offsets=[
+        30928,
+        35100,
+        31500,
+        31500,
+    ],
+    is_dst=[
+        0,
+        1,
+        0,
+        0,
+    ],
+    posix_has_rule=True,
+    posix_has_dst=False,
+    posix_std_offset=31500,
+    posix_dst_offset=31500,
+    posix_start_month=0,
+    posix_start_week=0,
+    posix_start_day=0,
+    posix_start_time=0,
+    posix_end_month=0,
+    posix_end_week=0,
+    posix_end_day=0,
+    posix_end_time=0,
+)
