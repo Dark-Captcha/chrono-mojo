@@ -16,33 +16,88 @@ from chrono.offset_datetime import OffsetDateTime
 from chrono.instant import Instant
 from chrono._core.clock_id import ClockId
 from chrono.duration import Duration
+from chrono._core.units import SECONDS_PER_HOUR, SECONDS_PER_MINUTE
 from chrono._internal.text import (
     pad,
     fractional_seconds,
     fold_leap_second,
     format_offset_hhmm,
 )
+from chrono._internal.itoa import write2, write4, write_n_digits_padded
 from chrono._internal.scanner import Scanner
 
 
 struct Rfc3339:
     @staticmethod
     def format(datetime: DateTime, offset: Offset) raises -> String:
-        var year = datetime.year()
+        # Single-allocation fast path: pre-compute the exact output length,
+        # allocate one String, write the 19 fixed bytes + variable fractional
+        # + 1 or 6 byte zone via direct pointer writes. Two-digit lookup
+        # avoids the divide/mod-plus-add pair per field.
+        # One pass over `_days_since_epoch` for the date components; the time
+        # accessors are each a single divide on a packed `_nanoseconds_since_
+        # midnight`, so calling them separately is fine (LLVM CSE's the divide).
+        var ymd = datetime.date().year_month_day()
+        var year = ymd.year
         if year < 0 or year > 9999:
             raise Error("chrono.Rfc3339: year out of RFC 3339 range (0..9999)")
-        var s = pad(year, 4)
-        s += "-" + pad(datetime.month().number(), 2)
-        s += "-" + pad(datetime.day(), 2)
-        s += "T" + pad(datetime.hour(), 2)
-        s += ":" + pad(datetime.minute(), 2)
-        s += ":" + pad(datetime.second(), 2)
-        s += fractional_seconds(datetime.nanosecond())
+        var month = ymd.month
+        var day = ymd.day
+        var hour = datetime.hour()
+        var minute = datetime.minute()
+        var second = datetime.second()
+        var nanos = datetime.nanosecond()
+
+        # Fractional precision — trim trailing zeros to match `fractional_seconds`.
+        var frac_digits = 0
+        var frac_value = 0
+        if nanos != 0:
+            frac_digits = 9
+            var n = nanos
+            while (n % 10) == 0:
+                n //= 10
+                frac_digits -= 1
+            frac_value = n
+
+        var zone_len = 1 if offset.is_utc() else 6
+        var frac_len = (1 + frac_digits) if frac_digits > 0 else 0
+        var total = 19 + frac_len + zone_len
+
+        var s = String(unsafe_uninit_length=total)
+        var p = s.unsafe_ptr_mut()
+
+        write4(p, 0, year)
+        p[4] = UInt8(ord("-"))
+        write2(p, 5, month)
+        p[7] = UInt8(ord("-"))
+        write2(p, 8, day)
+        p[10] = UInt8(ord("T"))
+        write2(p, 11, hour)
+        p[13] = UInt8(ord(":"))
+        write2(p, 14, minute)
+        p[16] = UInt8(ord(":"))
+        write2(p, 17, second)
+
+        var off = 19
+        if frac_digits > 0:
+            p[off] = UInt8(ord("."))
+            write_n_digits_padded(p, off + 1, frac_value, frac_digits)
+            off += 1 + frac_digits
+
         if offset.is_utc():
-            s += "Z"
+            p[off] = UInt8(ord("Z"))
         else:
-            s += format_offset_hhmm(offset.total_seconds(), colon=True)
-        return s
+            var sec = offset.total_seconds()
+            if sec >= 0:
+                p[off] = UInt8(ord("+"))
+            else:
+                p[off] = UInt8(ord("-"))
+                sec = -sec
+            write2(p, off + 1, sec // SECONDS_PER_HOUR)
+            p[off + 3] = UInt8(ord(":"))
+            write2(p, off + 4, (sec % SECONDS_PER_HOUR) // SECONDS_PER_MINUTE)
+
+        return s^
 
     @staticmethod
     def format(offset_datetime: OffsetDateTime) raises -> String:
