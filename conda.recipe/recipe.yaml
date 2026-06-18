@@ -8,7 +8,7 @@ package:
 
 source:
   - git: https://github.com/Dark-Captcha/chrono-mojo.git
-    rev: 60a5a021636528350af6e739ae39db9d09b8edab
+    rev: a6e6822d90be919cf6f38c438aa59859fd1cc6f4
 
 build:
   number: 0
